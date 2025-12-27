@@ -3,27 +3,64 @@
 <section class="connect">
   <h2>Connect With Me</h2>
 
-  <p>Email: 
+  <p>Email:
     <a href="mailto:ankitabamne2004@gmail.com">
-  ankitabamne2004@gmail.com
-  </a>
-</p>
+      ankitabamne2004@gmail.com
+    </a>
+  </p>
+
   <p>LinkedIn:
     <a href="https://www.linkedin.com/in/ankita-bamne04/" target="_blank">
       View Profile
     </a>
   </p>
 
-  <% if (msg) { %>
-    <p class="success"><%= msg %></p>
-  <% } %>
+  <p id="status-msg"></p>
 
-  <form method="POST" action="/connect">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Message"></textarea>
+  <form id="contact-form">
+    <input type="text" name="name" id="name" placeholder="Your Name" required>
+    <input type="email" name="email" id="email" placeholder="Your Email" required>
+    <textarea name="message" id="message" placeholder="Message" required></textarea>
     <button type="submit">Send</button>
   </form>
 </section>
+
+<!-- EmailJS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    emailjs.init("Kx7nHZrlQaTM-NRzB"); // Public Key
+
+    const form = document.getElementById("contact-form");
+    const statusMsg = document.getElementById("status-msg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      statusMsg.innerText = "⏳ Sending...";
+
+      emailjs.send(
+        "service_5mby0l4",
+        "template_eum7gke",
+        {
+          from_name: document.getElementById("name").value,
+          from_email: document.getElementById("email").value,
+          message: document.getElementById("message").value,
+        }
+      )
+      .then(() => {
+        statusMsg.innerText = "✅ Message sent successfully!";
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        statusMsg.innerText = "❌ Failed to send message.";
+      });
+    });
+
+  });
+</script>
 
 <%- include('partials/footer') %>

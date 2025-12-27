@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
+/*const nodemailer = require("nodemailer");*/
 const mongoose = require("mongoose");
 const Message = require("./models/Message");
 require("dotenv").config();
@@ -40,7 +40,7 @@ app.get("/connect", (req, res) => {
 /* =========================
    CONTACT FORM HANDLER
 ========================= */
-app.post("/connect", async (req, res) => {
+/*app.post("/connect", async (req, res) => {
   const { name, email, message } = req.body;
 
   try {
@@ -48,16 +48,13 @@ app.post("/connect", async (req, res) => {
     await Message.create({ name, email, message });
 
     // 2️⃣ Send Email
-    const transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
   user: process.env.EMAIL_USER,
   pass: process.env.EMAIL_PASS
 }
-  /*auth: {
-    user: "ankitabamne2004@gmail.com",
-    pass: "mhap qdpg xqol vnio"
-  }*/
+ 
 });
 
 const mailOptions = {
