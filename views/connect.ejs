@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+<section class="connect">
+  <h2>Connect With Me</h2>
+
+  <p>Email: 
+    <a href="mailto:ankitabamne2004@gmail.com">
+  ankitabamne2004@gmail.com
+  </a>
+</p>
+  <p>LinkedIn:
+    <a href="https://www.linkedin.com/in/ankita-bamne04/" target="_blank">
+      View Profile
+    </a>
+  </p>
+
+  <% if (msg) { %>
+    <p class="success"><%= msg %></p>
+  <% } %>
+
+  <form method="POST" action="/connect">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>
